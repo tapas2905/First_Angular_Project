@@ -9,6 +9,12 @@ export const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'form', component: FormComponent },
-  { path: 'products', component: ProductListComponent },
+  {
+    path: 'products',
+    loadChildren: () =>
+      import('../component/product/product.module').then(
+        (x) => x.ProductModule
+      ),
+  },
   { path: 'product/:id', component: ProductDetailsComponent },
 ];

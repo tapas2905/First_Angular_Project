@@ -18,7 +18,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     AppRoutingModule,
     ReactiveFormsModule,
     MatIconModule,
-    ProductModule,
     MatButtonModule,
     MatProgressBarModule,
   ],
