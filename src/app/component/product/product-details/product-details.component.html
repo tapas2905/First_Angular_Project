@@ -1,0 +1,6 @@
+<h3>product-details</h3>
+<div *ngIf="!loading">
+  <h2>{{ productDetails.title }}</h2>
+  <p>{{ productDetails.body }}</p>
+</div>
+<div *ngIf="loading"><h3>Please wait..</h3></div>

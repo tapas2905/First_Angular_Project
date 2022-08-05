@@ -1,0 +1,164 @@
+<div class="container-fluid">
+  <div class="form_container">
+    <form class="form mt-3" [formGroup]="myForm" (ngSubmit)="formSubmit()">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Enter your name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="exampleInputEmail1"
+          aria-describedby="emailHelp"
+          placeholder="Enter email"
+          formControlName="name"
+        />
+        <small
+          class="text-danger"
+          *ngIf="nameError?.hasError('required') && myForm.get('name')?.touched"
+        >
+          Name is required
+        </small>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Enter your email</label>
+        <input
+          type="email"
+          class="form-control"
+          id="exampleInputPassword1"
+          placeholder="email"
+          formControlName="email"
+        />
+        <small
+          class="text-danger"
+          *ngIf="!myForm.get('email')?.valid && myForm.get('email')?.touched"
+        >
+          Please enter valid email
+        </small>
+        <small
+          class="text-danger"
+          *ngIf="
+            emailError?.hasError('reauired') && myForm.get('email')?.touched
+          "
+        >
+          Please enter a email
+        </small>
+      </div>
+      <div class="form-group">
+        <div>
+          <label>Select Gender</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="radio"
+            id="inlineRadio1"
+            value="male"
+            formControlName="gender"
+          />
+          <label class="form-check-label" for="inlineRadio1">Male</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="radio"
+            id="inlineRadio2"
+            value="female"
+            formControlName="gender"
+          />
+          <label class="form-check-label" for="inlineRadio2">Female</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputPassword1">Select your Report</label>
+        <select class="form-control" formControlName="report">
+          <option value="">select report</option>
+          <option value="payment">Payment Related</option>
+          <option value="video">Video Related</option>
+          <option value="live">Live Related</option>
+          <option value="other">Other</option>
+        </select>
+        <small
+          class="text-danger"
+          *ngIf="
+            reportError?.hasError('required') && myForm.get('report')?.touched
+          "
+          >Please select report</small
+        >
+      </div>
+      <div class="form-group d-flex justify-content-between">
+        <div>
+          <label for="exampleInputPassword1">Chose Report Image*</label>
+          <input
+            type="file"
+            class="form-control"
+            id="exampleFormControlFile1"
+            accept="image/png, image/gif, image/jpeg"
+            (change)="onchange($event)"
+          />
+        </div>
+        <div>
+          <img
+            class="img-fluid"
+            width="100"
+            [src]="
+              imageURL ||
+              'https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg'
+            "
+            alt="reportImage"
+          />
+        </div>
+      </div>
+      <div>
+        <ng-container *ngFor="let expert of expertList">
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="{{ expert.id }}"
+              value="{{ expert.value }}"
+              (change)="onCheckboxChange($event)"
+            />
+            <label class="form-check-label" for="{{ expert.id }}">{{
+              expert.value
+            }}</label>
+          </div>
+        </ng-container>
+        <br />
+        <small class="text-danger" *ngIf="expertError?.hasError('required')"
+          >Please select minimum one expert</small
+        >
+      </div>
+      <div formArrayName="addresses">
+        <ng-container *ngFor="let address of addressControll; index as i">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Enter address</label>
+            <div>
+              <label class="text-danger" (click)="deleteAddress(i)"
+                ><mat-icon>delete_forever</mat-icon></label
+              >
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              placeholder="Enter address"
+              formControlName="{{ i }}"
+            />
+          </div>
+        </ng-container>
+
+        <div class="my-3">
+          <button type="button" class="btn btn-light flex" (click)="addSkils()">
+            <mat-icon>add_circle</mat-icon> &nbsp; Add Address
+          </button>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary" [disabled]="!myForm.valid">
+        Submit
+      </button>
+    </form>
+  </div>
+  <mat-progress-bar mode="buffer"></mat-progress-bar>
+</div>
