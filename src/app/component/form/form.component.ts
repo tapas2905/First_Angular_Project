@@ -13,7 +13,7 @@ export class FormComponent implements OnInit {
   myForm!: FormGroup;
   ngOnInit(): void {
     this.myForm = new FormGroup({
-      name: new FormControl('', Validators.required),
+      name: new FormControl('', [Validators.required, Validators.minLength(4)]),
       email: new FormControl('', [Validators.required, Validators.email]),
       gender: new FormControl('male', Validators.required),
       report: new FormControl('', Validators.required),
@@ -23,7 +23,11 @@ export class FormComponent implements OnInit {
     });
   }
   formSubmit() {
-    console.log(this.myForm.value);
+    if (this.myForm.valid) {
+      console.log(this.myForm.value);
+    } else {
+      this.myForm.markAllAsTouched();
+    }
   }
   expertList: any = [
     { value: 'Hair', id: '1' },
@@ -62,9 +66,7 @@ export class FormComponent implements OnInit {
       return;
     }
   }
-  get addressControll() {
-    return (this.myForm.get('addresses') as FormArray).controls;
-  }
+
   addSkils() {
     (<FormArray>this.myForm.get('addresses')).push(
       new FormControl(null, Validators.required)
@@ -88,6 +90,7 @@ export class FormComponent implements OnInit {
       experts.removeAt(index);
     }
   }
+  addbtnType!: any;
   // Used For Get error handle
   get nameError() {
     return this.myForm.get('name');
@@ -101,5 +104,9 @@ export class FormComponent implements OnInit {
   get expertError() {
     // console.log(this.myForm.get('expert'));
     return this.myForm.get('expert');
+  }
+  get addressControll() {
+    this.addbtnType = (this.myForm.get('addresses') as FormArray).controls;
+    return (this.myForm.get('addresses') as FormArray).controls;
   }
 }

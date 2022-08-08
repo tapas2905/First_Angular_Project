@@ -3,4 +3,8 @@
   <h2>{{ productDetails.title }}</h2>
   <p>{{ productDetails.body }}</p>
 </div>
-<div *ngIf="loading"><h3>Please wait..</h3></div>
+<div *ngIf="loading">
+  <h3>
+    <ngx-skeleton-loader count="2" appearance="line"></ngx-skeleton-loader>
+  </h3>
+</div>

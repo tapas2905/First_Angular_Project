@@ -31,11 +31,12 @@ export class ProductDetailsComponent implements OnInit {
       if (res.status < 400) {
         this.productDetails = resJson;
         this.loading = false;
-        this._toast.success('toast working!');
+        this._toast.success('Product details fetch successfull');
       }
     } catch (error) {
       console.log(error);
       this.loading = false;
+      this._toast.error('Something went wrong please try again !');
     }
   }
 }

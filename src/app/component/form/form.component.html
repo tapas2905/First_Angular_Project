@@ -2,24 +2,36 @@
   <div class="form_container">
     <form class="form mt-3" [formGroup]="myForm" (ngSubmit)="formSubmit()">
       <div class="form-group">
-        <label for="exampleInputEmail1">Enter your name</label>
+        <label for="exampleInputEmail1">Enter your name*</label>
         <input
           type="text"
           class="form-control"
           id="exampleInputEmail1"
           aria-describedby="emailHelp"
-          placeholder="Enter email"
+          placeholder="Enter name"
           formControlName="name"
         />
         <small
           class="text-danger"
-          *ngIf="nameError?.hasError('required') && myForm.get('name')?.touched"
+          *ngIf="
+            myForm.controls['name'].hasError('required') &&
+            myForm.get('name')?.touched
+          "
         >
           Name is required
         </small>
+        <small
+          class="text-danger"
+          *ngIf="
+            myForm.controls['name'].hasError('minlength') &&
+            myForm.get('name')?.touched
+          "
+        >
+          Name length should be 4
+        </small>
       </div>
       <div class="form-group">
-        <label for="exampleInputPassword1">Enter your email</label>
+        <label for="exampleInputPassword1">Enter your email*</label>
         <input
           type="email"
           class="form-control"
@@ -44,7 +56,7 @@
       </div>
       <div class="form-group">
         <div>
-          <label>Select Gender</label>
+          <label>Select Gender*</label>
         </div>
         <div class="form-check form-check-inline">
           <input
@@ -69,7 +81,7 @@
       </div>
 
       <div class="form-group">
-        <label for="exampleInputPassword1">Select your Report</label>
+        <label for="exampleInputPassword1">Select your Report*</label>
         <select class="form-control" formControlName="report">
           <option value="">select report</option>
           <option value="payment">Payment Related</option>
@@ -95,6 +107,14 @@
             accept="image/png, image/gif, image/jpeg"
             (change)="onchange($event)"
           />
+          <small
+            class="text-danger"
+            *ngIf="
+              myForm.controls['reportFile'].hasError('required') &&
+              myForm.get('reportFile')?.touched
+            "
+            >Image is require</small
+          >
         </div>
         <div>
           <img
@@ -109,6 +129,9 @@
         </div>
       </div>
       <div>
+        <div>
+          <label>Select an exoert*</label>
+        </div>
         <ng-container *ngFor="let expert of expertList">
           <div class="form-check form-check-inline">
             <input
@@ -124,7 +147,11 @@
           </div>
         </ng-container>
         <br />
-        <small class="text-danger" *ngIf="expertError?.hasError('required')"
+        <small
+          class="text-danger"
+          *ngIf="
+            expertError?.hasError('required') && myForm.get('expert')?.touched
+          "
           >Please select minimum one expert</small
         >
       </div>
@@ -145,6 +172,9 @@
               placeholder="Enter address"
               formControlName="{{ i }}"
             />
+            <small class="text-danger" *ngIf="address.errors && address.touched"
+              >Address is required</small
+            >
           </div>
         </ng-container>
 
@@ -155,9 +185,7 @@
         </div>
       </div>
 
-      <button type="submit" class="btn btn-primary" [disabled]="!myForm.valid">
-        Submit
-      </button>
+      <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
   <mat-progress-bar mode="buffer"></mat-progress-bar>
