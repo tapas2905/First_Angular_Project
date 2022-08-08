@@ -9,6 +9,7 @@ export const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'form', component: FormComponent },
+  // { path: 'form', component: ProductDetailsComponent },
   {
     path: 'products',
     loadChildren: () =>
@@ -16,5 +17,4 @@ export const appRoutes: Routes = [
         (x) => x.ProductModule
       ),
   },
-  { path: 'product/:id', component: ProductDetailsComponent },
 ];

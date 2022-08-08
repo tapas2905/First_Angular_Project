@@ -2,7 +2,7 @@
 <div>
   <ul>
     <li *ngFor="let product of productList">
-      <a [routerLink]="['/product', product.id]">{{ product.title }}</a>
+      <a [routerLink]="['/products', product.id]">{{ product.title }}</a>
     </li>
   </ul>
 </div>

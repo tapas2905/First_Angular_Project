@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ComponentModule } from './component/component.module';
 import { appRoutes } from './Routes/routes';
@@ -13,7 +11,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     ComponentModule,
     RouterModule.forRoot(appRoutes),
     BrowserAnimationsModule,
